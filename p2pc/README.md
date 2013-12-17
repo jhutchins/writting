@@ -38,14 +38,17 @@ This bring us to a point where we can discuss T2PC and D2PC. T2PC is a common
 implementation of 2PC where the controller doesn't directly communicate with
 all the participants in a transaction. Rather it delegates the communication in
 a tree structure. As you can see in this really cool diagram.
-![t2pc](/imgs/t2pc.png). In T2PC then the controller sends messages to it's
-children (in this case Deligates A & D) and they send them to their children
-(and they send them to their children, etc...) and then wait for the response
-from all their children before responding. If any node receives an abort from
-it's children or itself needs to abort it will reply with an abort message.
-Otherwise it replies with a ready message. The controller collects the response
-from all it's chilren (which implies the state of their entire sub-tree) and
-then decided to commit or abort.
+
+![t2pc](/imgs/t2pc.png)
+
+In T2PC then the controller sends messages to it's children (in this case
+Deligates A & D) and they send them to their children (and they send them to
+their children, etc...) and then wait for the response from all their children
+before responding. If any node receives an abort from it's children or itself
+needs to abort it will reply with an abort message. Otherwise it replies with
+a ready message. The controller collects the response from all it's chilren
+(which implies the state of their entire sub-tree) and then decided to commit
+or abort.
 
 D2PC builds on this idea by suggesting that the commit controller should be
 dynamically selected among the various nodes of the tree as a way of increasing
@@ -58,19 +61,25 @@ all of it's neighbors when it final is ready then it becomes the commitment
 controller and decides whether the transaction should be commited (if all the
 message it received where ready message and it is ready) or to abort (the the
 CC must abort or it recieved an abort message). For people who like diagrams
-here's a diagram. ![d2pc](/imgs/d2pc.png) As you can see in the diagram because
-Delegate B was much slower than the other delegates in responding Delegate A
-was eventually chosen as the node to decide if the transaction for be
-committed. Now there are some issues with D2PC one of which is glare (which can
-be show using math will occur in one location and only one location in the
-tree, if you want to see the math you have to 
+here's a diagram. 
+
+![d2pc](/imgs/d2pc.png)
+
+As you can see in the diagram because Delegate B was much slower than the other
+delegates in responding Delegate A was eventually chosen as the node to decide
+if the transaction for be committed. Now there are some issues with D2PC one of
+which is glare (which can be show using math will occur in one location and
+only one location in the tree, if you want to see the math you have to 
 [buy](http://link.springer.com/chapter/10.1007/3-540-58907-4_14) Yoav Raz's
-paper on the subject). This can be seen in the following diagram. ![d2pc
-glare](/imgs/d2pc_glare.png) In this diagram we can see that the Original
-Controller and Delegate A both try to send ready message to each other at about
-the same time. In this case you must go through a process to decide whether the
-Original Controller or Delegate A will be the commit controller and then the
-commitment decision can be made and the transaction finished.
+paper on the subject). This can be seen in the following diagram.
+
+![d2pc glare](/imgs/d2pc_glare.png)
+
+In this diagram we can see that the Original Controller and Delegate A both try
+to send ready message to each other at about the same time. In this case you
+must go through a process to decide whether the Original Controller or Delegate
+A will be the commit controller and then the commitment decision can be made
+and the transaction finished.
 
 ##P2PC
 
