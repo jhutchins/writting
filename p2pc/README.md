@@ -132,4 +132,4 @@ provides the following benefits
 
 * Fastest possible abort in the abort case.
 * Fastest possible commit in success
-* No need to central commit controller
+* No need for central commit controller
