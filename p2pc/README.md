@@ -1,4 +1,4 @@
-#P2PC: A better distributed transaction protocol.
+#P2PC: A Better Distributed Transaction Protocol.
 
 ##Intro
 
