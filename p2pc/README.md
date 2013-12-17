@@ -103,6 +103,5 @@ The protocol algorithm is pretty simple and is as follows
 * A node in the committed state that has received COMMITTED messages from all it's neighbors enters the forgotten state.
 
 ####Abort Procedure
-* A node that encounters an error during the prepare phase sends an ABORT message to all it's neighbors and enters the aborted state
-* A node in the prepared or ready state that has received an ABORT message from a neighbor sends an ABORT message to all other neighbors, aborts, enters the aborted state, and sends an ABORTED message to that neighbor and all neighbors who sent ABORTED messages during the abort process.
-* A node in the aborted state that has received ABORTED messages from all it's neighbors enters the forgotten state.
+* A node that encounters an error during the prepare phase sends an ABORT message to all it's neighbors and enters the forgotten state
+* A node in the prepared or ready state that has received an ABORT message from a neighbor sends an ABORT message to all other neighbors, aborts and enters the forgotten state.
