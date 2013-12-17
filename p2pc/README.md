@@ -91,17 +91,45 @@ away with the need for explicite controllers altogether! If you were thinking
 anything like that then great (if not, you should be). This is where P2PC comes
 in.
 
-The protocol algorithm is pretty simple and is as follows
 
 ###Algorithm
+
+The protocol algorithm is pretty simple and is as follows. I have included the
+confirmations and state transitions that I had left out of the other
+discussions up to this point for simplicity because you need all of this
+information to create a fully functional implementation.
 
 ####Commitment Procedure
 * A node sends an explicit PREPARE message when applies to its neighbors, if required
 * A node in the prepared state that has received a READY message from all its neighbors but one, sends to that neighbor a READY message and enters the ready state.
-* A node in the prepared state that has received a READY message from all its neighbors sends a READY message to all it's neighbors, commits, and enters the committed state.
-* A node in the ready state that receives a READY message from a neighbor sends a READY message to all other neighbors, commits, enters the committed state, and sends a COMMITTED message to that neighbor and all neighbors who sent COMMITTED messages during the commit process.
+* A node in the prepared state that has received a READY message from all its neighbors commits, and enters the committed state and sends a COMMITED message to all it's neighbors
+* A node in the ready state that receives a READY or COMMITED message from a neighbor commits, enters the committed state, and sends a COMMITTED message to all it's neighbors.
 * A node in the committed state that has received COMMITTED messages from all it's neighbors enters the forgotten state.
 
 ####Abort Procedure
 * A node that encounters an error during the prepare phase sends an ABORT message to all it's neighbors and enters the forgotten state
 * A node in the prepared or ready state that has received an ABORT message from a neighbor sends an ABORT message to all other neighbors, aborts and enters the forgotten state.
+
+###Dicussion
+
+Now I kow what you're saying to yourself. That's all well and good, but what does
+it look like as a diagram? They look like this.
+
+####No Glare
+
+![p2pc](/imgs/p2pc.png)
+
+####With Glare
+
+![p2pc glare](/imgs/p2pc_glare.png)
+
+####With Error
+
+![p2pc abort](/imgs/p2pc_abort.png)
+
+The benefits I think speak for themselve, but just to be expliciate P2PC
+provides the following benefits
+
+* Fastest possible abort in the abort case.
+* Fastest possible commit in success
+* No need to central commit controller
