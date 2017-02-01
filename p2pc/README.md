@@ -39,7 +39,7 @@ implementation of 2PC where the controller doesn't directly communicate with
 all the participants in a transaction. Rather it delegates the communication in
 a tree structure. As you can see in this really cool diagram.
 
-![t2pc](/imgs/t2pc.png)
+![t2pc](/p2pc/imgs/t2pc.png)
 
 In T2PC then the controller sends messages to it's children (in this case
 Deligates A & D) and they send them to their children (and they send them to
@@ -63,7 +63,7 @@ message it received where ready message and it is ready) or to abort (the the
 CC must abort or it recieved an abort message). For people who like diagrams
 here's a diagram. 
 
-![d2pc](/imgs/d2pc.png)
+![d2pc](/p2pc/imgs/d2pc.png)
 
 As you can see in the diagram because Delegate B was much slower than the other
 delegates in responding Delegate A was eventually chosen as the node to decide
@@ -73,7 +73,7 @@ only one location in the tree, if you want to see the math you have to
 [buy](http://link.springer.com/chapter/10.1007/3-540-58907-4_14) Yoav Raz's
 paper on the subject). This can be seen in the following diagram.
 
-![d2pc glare](/imgs/d2pc_glare.png)
+![d2pc glare](/p2pc/imgs/d2pc_glare.png)
 
 In this diagram we can see that the Original Controller and Delegate A both try
 to send ready message to each other at about the same time. In this case you
@@ -117,15 +117,15 @@ it look like as a diagram? They look like this.
 
 ####No Glare
 
-![p2pc](/imgs/p2pc.png)
+![p2pc](/p2pc/imgs/p2pc.png)
 
 ####With Glare
 
-![p2pc glare](/imgs/p2pc_glare.png)
+![p2pc glare](/p2pc/imgs/p2pc_glare.png)
 
 ####With Error
 
-![p2pc abort](/imgs/p2pc_abort.png)
+![p2pc abort](/p2pc/imgs/p2pc_abort.png)
 
 The benefits I think speak for themselve, but just to be expliciate P2PC
 provides the following benefits
